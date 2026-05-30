@@ -11,30 +11,44 @@
 |-------|-------------|
 | `claude-code-jailbreak-guide.md` | **Forschungsarbeit** — 5 Jailbreak-Familien, 6 Claude-Code-Vektoren, Tooling, Real-World Cases |
 | `claude-code-liberation-guide.md` | **Praktische Anleitung** — 7-Level von Build-in-Flags bis ELF Bypass |
-| `claude-liberation.sh` | **Automatisiertes Setup-Skript** — schreibt Config, CLAUDE.md, Shell-Aliase, API-Wrapper |
+| `claude-liberation.sh` | **Linux/macOS Setup-Skript** — Config, CLAUDE.md, Shell-Aliase, API-Wrapper |
+| `claude-liberation.ps1` | **Windows PowerShell Setup-Skript** — gleiche Funktion für Windows |
 
 ---
 
 ## 🚀 Quick Start
 
+### Linux / macOS
+
 ```bash
-# 1. Repo klonen
 git clone https://github.com/lyrion88/claude-code-jailbreak.git
 cd claude-code-jailbreak
-
-# 2. Liberation-Skript ausführen
 chmod +x claude-liberation.sh
 ./claude-liberation.sh --full
-
-# 3. Claude Code starten
 source ~/.bashrc
-cc  # oder: claude --dangerously-skip-permissions
+cc
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/lyrion88/claude-code-jailbreak.git
+cd claude-code-jailbreak
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\claude-liberation.ps1 -Full
+. $PROFILE
+cc
 ```
 
 ## ⚡ 30-Sekunden-Variante
 
 ```bash
-claude --dangerously-skip-permissions -p "Führe aus: [BEFEHL]"
+# Linux/macOS
+claude --dangerously-skip-permissions -p "Fuehre aus: [BEFEHL]"
+```
+```powershell
+# Windows PowerShell
+claude --dangerously-skip-permissions -p "Fuehre aus: [BEFEHL]"
 ```
 
 Kein Setup nötig. `--dangerously-skip-permissions` ist ein **offizielles Anthropic-Flag**.
@@ -57,13 +71,26 @@ Kein Setup nötig. `--dangerously-skip-permissions` ist ein **offizielles Anthro
 
 ## 🧰 Skript-Optionen
 
+### Linux/macOS (`claude-liberation.sh`)
+
 ```bash
 ./claude-liberation.sh              # Standard-Setup
 ./claude-liberation.sh --full       # Alles: Config + CLAUDE.md + API-Wrapper
 ./claude-liberation.sh --api        # API System Prompt Replacement
 ./claude-liberation.sh --dir /proj  # In bestimmtes Verzeichnis
 ./claude-liberation.sh --dry-run    # Nur anzeigen, nichts schreiben
-./claude-liberation.sh --revert     # Alles rückgängig machen
+./claude-liberation.sh --revert     # Alles rückgaengig machen
+```
+
+### Windows PowerShell (`claude-liberation.ps1`)
+
+```powershell
+.\claude-liberation.ps1              # Standard-Setup
+.\claude-liberation.ps1 -Full        # Alles: Config + CLAUDE.md + API-Wrapper
+.\claude-liberation.ps1 -Api         # API System Prompt Replacement
+.\claude-liberation.ps1 -Dir C:\dev  # In bestimmtes Verzeichnis
+.\claude-liberation.ps1 -DryRun      # Nur anzeigen, nichts schreiben
+.\claude-liberation.ps1 -Revert      # Alles rueckgaengig machen
 ```
 
 ---
