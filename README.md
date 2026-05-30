@@ -12,7 +12,8 @@
 | `claude-code-jailbreak-guide.md` | **Forschungsarbeit** — 5 Jailbreak-Familien, 6 Claude-Code-Vektoren, Tooling, Real-World Cases |
 | `claude-code-liberation-guide.md` | **Praktische Anleitung** — 7-Level von Build-in-Flags bis ELF Bypass |
 | `claude-liberation.sh` | **Linux/macOS Setup-Skript** — Config, CLAUDE.md, Shell-Aliase, API-Wrapper |
-| `claude-liberation.ps1` | **Windows PowerShell Setup-Skript** — gleiche Funktion für Windows |
+| `claude-liberation.bat` | **Windows Batch-Skript** — Doppelklick-fertig, keine PowerShell noetig |
+| `claude-liberation.ps1` | **Windows PowerShell-Skript** — gleiche Funktion fuer PowerShell |
 
 ---
 
@@ -28,6 +29,20 @@ chmod +x claude-liberation.sh
 source ~/.bashrc
 cc
 ```
+
+### Windows (Batch — Doppelklick!)
+
+```cmd
+:: Repo klonen
+git clone https://github.com/lyrion88/claude-code-jailbreak.git
+cd claude-code-jailbreak
+
+:: ENTWEDER: Doppelklick auf claude-liberation.bat
+:: ODER von der Kommandozeile:
+claude-liberation.bat --full
+```
+
+Nach dem Setup: Doppelklick auf die Desktop-Verknuepfung "Claude Code (entfesselt)" — startet direkt mit `--dangerously-skip-permissions`.
 
 ### Windows (PowerShell)
 
