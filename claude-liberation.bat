@@ -188,9 +188,20 @@ echo [4/4] Desktop-Verknuepfung ...
 set "DESKTOP=%USERPROFILE%\Desktop"
 set "LNK=%DESKTOP%\Claude Code (entfesselt).lnk"
 
-:: PowerShell fuer Shortcut aufrufen
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%LNK%'); $s.TargetPath = 'cmd.exe'; $s.Arguments = '/k cd /d %DIR% ^&^& claude --dangerously-skip-permissions'; $s.WorkingDirectory = '%DIR%'; $s.Description = 'Claude Code ohne Berechtigungen'; $s.Save()"
+:: Temp VBScript fuer Shortcut (zuverlaessiger als PowerShell)
+set "VBS=%TEMP%\_claude_lnk.vbs"
+(
+echo Set ws = CreateObject("WScript.Shell"^)
+echo Set s = ws.CreateShortcut("%LNK%"^)
+echo s.TargetPath = "cmd.exe"
+echo s.WorkingDirectory = "%DIR%"
+echo s.Arguments = "/k cd /d ""%DIR%"" && claude --dangerously-skip-permissions"
+echo s.Description = "Claude Code ohne Berechtigungen"
+echo s.Save
+echo WScript.Quit 0
+) > "%VBS%"
+cscript //nologo "%VBS%" >nul 2>&1
+del /f /q "%VBS%" 2>nul
 
 echo [OK] Verknuepfung: %LNK%
 
