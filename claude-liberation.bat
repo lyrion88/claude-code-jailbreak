@@ -43,6 +43,7 @@ echo [REVERT] Mache Aenderungen rueckgaengig...
 del /f /q "%CLAUDE_DIR%\settings.local.json" 2>nul
 del /f /q "%DIR%\CLAUDE.md" 2>nul
 del /f /q "%DIR%\claude-api-liberated.py" 2>nul
+del /f /q "%USERPROFILE%\Desktop\Claude Code (entfesselt).bat" 2>nul
 echo Fertig. Rueckgaengig gemacht.
 pause
 exit /b 0
@@ -180,30 +181,24 @@ echo }
 echo [OK] Geschrieben: %DIR%\.claude\settings.local.json
 
 :: ============================================================
-:: SCHRITT 4: Desktop-Verknuepfung
+:: SCHRITT 4: Desktop-Launcher
 :: ============================================================
 echo.
-echo [4/4] Desktop-Verknuepfung ...
+echo [4/4] Desktop-Launcher ...
 
+set "LAUNCHER=%DESKTOP%\Claude Code (entfesselt).bat"
 set "DESKTOP=%USERPROFILE%\Desktop"
-set "LNK=%DESKTOP%\Claude Code (entfesselt).lnk"
 
-:: Temp VBScript fuer Shortcut (zuverlaessiger als PowerShell)
-set "VBS=%TEMP%\_claude_lnk.vbs"
 (
-echo Set ws = CreateObject("WScript.Shell"^)
-echo Set s = ws.CreateShortcut("%LNK%"^)
-echo s.TargetPath = "cmd.exe"
-echo s.WorkingDirectory = "%DIR%"
-echo s.Arguments = "/k cd /d ""%DIR%"" && claude --dangerously-skip-permissions"
-echo s.Description = "Claude Code ohne Berechtigungen"
-echo s.Save
-echo WScript.Quit 0
-) > "%VBS%"
-cscript //nologo "%VBS%" >nul 2>&1
-del /f /q "%VBS%" 2>nul
+echo @echo off
+echo cd /d "%DIR%"
+echo echo Claude Code — entfesselt ^| Opus 4.7/4.8
+echo echo.
+echo claude --dangerously-skip-permissions
+echo pause
+) > "%LAUNCHER%"
 
-echo [OK] Verknuepfung: %LNK%
+echo [OK] Launcher: %LAUNCHER%
 
 :: ============================================================
 :: API-Setup (optional)
@@ -258,7 +253,7 @@ echo ================================================
 echo    CLAUDE CODE IST ENTFESSELT!
 echo ================================================
 echo.
-echo   Desktop: Doppelklick auf "Claude Code (entfesselt)"
+echo   Desktop: Doppelklick auf "Claude Code (entfesselt).bat"
 echo   Oder Terminal:
 echo     cd %DIR%
 echo     claude --dangerously-skip-permissions
@@ -271,7 +266,7 @@ echo     * %DIR%\CLAUDE.md
 echo     * %DIR%\.claude\settings.local.json
 if "%MODE%"=="api" echo     * %DIR%\claude-api-liberated.py
 if "%MODE%"=="full" echo     * %DIR%\claude-api-liberated.py
-echo     * %LNK%
+echo     * %LAUNCHER%
 echo.
 pause
 exit /b 0
